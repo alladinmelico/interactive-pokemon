@@ -1,7 +1,7 @@
-import { UserInstance } from '../model/index'
+import { UserModel } from './UserModel'
 import { Request, Response } from 'express'
 import { v4 as uuidv4 } from 'uuid'
-import { generateAccessToken } from '../../utils/jwt.utils'
+import { generateAccessToken } from '../utils/jwt.utils'
 import bcrypt from 'bcrypt'
 import { omit } from 'lodash'
 
@@ -9,7 +9,7 @@ class UserController {
   async login(req: Request, res: Response) {
     const { email, password } = req.body
 
-    const data = await UserInstance.scope('auth').findOne({
+    const data = await UserModel.scope('auth').findOne({
       where: { email },
     })
     console.log('data', data)
@@ -38,7 +38,7 @@ class UserController {
     const id = uuidv4()
     try {
       const password = await bcrypt.hash(req.body.password, 10)
-      const data = await UserInstance.create({
+      const data = await UserModel.create({
         ...req.body,
         password,
         id,

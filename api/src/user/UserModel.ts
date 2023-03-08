@@ -1,16 +1,18 @@
 import { DataTypes, Model } from 'sequelize'
-import database from '../../config/database.config'
+import database from '../config/database.config'
+import { PokemonModel } from '../pokemon/PokemonModel'
 
 interface IUser {
   id: string
   name: string
   email: string
   password?: string
+  items?: Array<number>
 }
 
-export class UserInstance extends Model<IUser> {}
+export class UserModel extends Model<IUser> {}
 
-UserInstance.init(
+UserModel.init(
   {
     id: {
       type: DataTypes.UUIDV4,
@@ -42,3 +44,5 @@ UserInstance.init(
     },
   }
 )
+
+UserModel.hasMany(PokemonModel)

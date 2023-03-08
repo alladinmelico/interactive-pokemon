@@ -1,7 +1,7 @@
 import express from 'express'
-import userValidator from '../validator'
-import middleware from '../../middleware'
-import userController from '../controller'
+import userValidator from './UserValidator'
+import middleware from '../middleware'
+import userController from './UserController'
 
 const router = express.Router()
 
