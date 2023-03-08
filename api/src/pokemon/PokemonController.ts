@@ -1,7 +1,8 @@
 import { UserModel } from '../user/UserModel'
-import { PokemonModel } from './PokemonModel'
+import { PokemonModel, IPokemon } from './PokemonModel'
 import { Request, Response } from 'express'
 import { v4 as uuidv4 } from 'uuid'
+import { PokemonRequest } from './PokemonValidator'
 
 declare global {
   namespace Express {
@@ -14,14 +15,8 @@ declare global {
 class PokemonController {
   async index(req: Request, res: Response) {
     try {
-      const limit = req.query?.limit as number | undefined
-      const offset = req.query?.offset as number | undefined
-
       const data = await PokemonModel.findAll({
         where: {},
-        limit,
-        offset,
-        include: UserModel,
       })
       return res.json({ data, message: 'Pokemons successfully retrieved.' })
     } catch (error) {
@@ -35,7 +30,6 @@ class PokemonController {
 
       const data = await PokemonModel.findOne({
         where: { id },
-        include: UserModel,
       })
 
       if (!data) {
@@ -52,22 +46,46 @@ class PokemonController {
 
   async save(req: Request, res: Response) {
     try {
-      const id = uuidv4()
       const user = await UserModel.findOne({
         where: { email: req.user?.email },
+        include: PokemonModel,
       })
-      const data = await PokemonModel.create({
-        ...req.body,
-        id,
-        UserId: user?.dataValues.id,
-      })
+      if (!user) {
+        return res.status(404).send('User not found')
+      }
 
+      if (user.toJSON().Pokemons?.length) {
+        return res.status(403).send('User had already chosen starter pokemons.')
+      }
+
+      const pokemons: Array<IPokemon> = req.body.pokemons.map(
+        (pokemon: PokemonRequest) => ({
+          ...pokemon,
+          id: uuidv4(),
+          UserId: user?.dataValues.id,
+        })
+      )
+
+      const data = await PokemonModel.bulkCreate(pokemons)
       return res.json({
-        data: data.toJSON(),
+        data: data,
         message: 'Pokemon successfully created.',
       })
     } catch (error) {
       return res.status(500).send('Failed to create')
+    }
+  }
+
+  async addItem(req: Request, res: Response) {
+    try {
+      const user = await UserModel.findOne({
+        where: { email: req.user?.email },
+      })
+      if (!user) {
+        return res.status(404).send('User not found')
+      }
+    } catch (error) {
+      return res.status(500).send('Failed to add items')
     }
   }
 }

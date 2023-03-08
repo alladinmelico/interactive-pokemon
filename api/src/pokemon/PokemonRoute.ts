@@ -14,15 +14,10 @@ declare global {
 }
 
 router
-  .get(
-    '/pokemons',
-    pokemonValidator.checkReadAll(),
-    middleware.handleValidation,
-    pokemonController.index
-  )
+  .get('/pokemons', middleware.authenticateToken, pokemonController.index)
   .post(
     '/pokemons',
-    pokemonValidator.checkCreateOne(),
+    pokemonValidator.checkCreateMany(),
     [middleware.authenticateToken, middleware.handleValidation],
     pokemonController.save
   )

@@ -1,8 +1,9 @@
 import { DataTypes, Model } from 'sequelize'
 import database from '../config/database.config'
 
-interface IPokemon {
+export interface IPokemon {
   id: string
+  pokemonId: number
   name: string
   UserId: string
 }
@@ -16,12 +17,17 @@ PokemonModel.init(
       primaryKey: true,
       allowNull: false,
     },
+    pokemonId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     UserId: {
       type: DataTypes.UUIDV4,
+      allowNull: false,
       references: {
         model: 'Users',
         key: 'id',

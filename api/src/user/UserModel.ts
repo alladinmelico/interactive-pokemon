@@ -1,3 +1,4 @@
+import Items, { Item } from '../item/Items.constant'
 import { DataTypes, Model } from 'sequelize'
 import database from '../config/database.config'
 import { PokemonModel } from '../pokemon/PokemonModel'
@@ -7,7 +8,8 @@ interface IUser {
   name: string
   email: string
   password?: string
-  items?: Array<number>
+  items?: string
+  Pokemons?: Array<PokemonModel>
 }
 
 export class UserModel extends Model<IUser> {}
@@ -30,6 +32,13 @@ UserModel.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    items: {
+      type: DataTypes.STRING,
+      get: function () {
+        const itemsArr = this.getDataValue('items')?.split(',')
+        return itemsArr?.map((item) => Items.get(item))
+      },
     },
   },
   {
