@@ -44,7 +44,7 @@ class ItemController {
     try {
       const { id } = req.params
 
-      return res.json({ message: 'Post successfully deleted.' })
+      return res.json({ message: 'Item successfully deleted.' })
     } catch (error) {
       return res.status(500).send('Failed to delete')
     }
