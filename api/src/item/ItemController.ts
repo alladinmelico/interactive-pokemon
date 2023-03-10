@@ -39,16 +39,6 @@ class ItemController {
       return res.status(500).send('Failed to create')
     }
   }
-
-  async delete(req: Request, res: Response) {
-    try {
-      const { id } = req.params
-
-      return res.json({ message: 'Item successfully deleted.' })
-    } catch (error) {
-      return res.status(500).send('Failed to delete')
-    }
-  }
 }
 
 export default new ItemController()
