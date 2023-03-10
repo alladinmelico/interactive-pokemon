@@ -27,3 +27,7 @@ Open a new terminal and run the following:
 ## 🗄️ Database Schema
 The User table has many Pokemons. The UserId of the Pokemon table belongs to the User table. The items column is just a string with containing list of items. Since this app only uses SQLite, we can't put a column with array as the data type. The items are only being parsed and serialized. We only have three contant items, we can just retrieve the details of an item given unique identifier. 
 ![Pokemon ERD](https://user-images.githubusercontent.com/40887666/224315468-dcc3ec24-1ccc-4511-ae72-814da0d644b6.png)
+
+## 🚀 Deployement Plan
+- Dockerize the client and api
+- Deploy the container to any servers e.g. AWS, DigitalOcean, Linode
