@@ -23,3 +23,7 @@ Open a new terminal and run the following:
 3. Click the "Shop" button to go to shop panel. <i>Note: You can only buy items up to $1000 in total. You can remove or add items indefinitely.</i>
 4. Play around!
 5. Click the Logout button on bottom right corner of the screen to logout. 
+
+## Database Schema
+The User table has many Pokemons. The UserId of the Pokemon table belongs to the User table. The items column is just a string with containing list of items. Since this app only uses SQLite, we can't put a column with array as the data type. The items are only being parsed and serialized. We only have three contant items, we can just retrieve the details of an item given unique identifier. 
+![Pokemon ERD](https://user-images.githubusercontent.com/40887666/224315468-dcc3ec24-1ccc-4511-ae72-814da0d644b6.png)
