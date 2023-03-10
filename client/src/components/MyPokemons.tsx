@@ -26,7 +26,10 @@ export default function MyPokemons() {
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokemonId}.png`}
               alt={pokemon.name}
-              className="object-contain object-center hover:animate-bounce cursor-pointer"
+              className="object-contain object-center float-animation mx-auto"
+              style={{
+                animationDelay: `${Math.floor(Math.random() * 1000)}ms`,
+              }}
             />
           </div>
           <p className="capitalize text-center">
