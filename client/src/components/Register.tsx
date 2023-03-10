@@ -1,4 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { register as registerUser } from '../services/user.service'
 
 type IFormInput = {
   name: string
@@ -7,16 +9,21 @@ type IFormInput = {
   confirmPassword: string
 }
 
-export default function Login() {
+export default function Register() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
   } = useForm<IFormInput>()
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data, isSubmitting)
-    await new Promise((f) => setTimeout(f, 4000))
+  const navigate = useNavigate()
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    registerUser(data.name, data.email, data.password).then(({ data }) => {
+      if (!data.errors) {
+        navigate('/onboarding')
+      }
+    })
   }
 
   return (
@@ -142,20 +149,12 @@ export default function Login() {
                 </div>
                 <hr className="mb-6 border-t" />
                 <div className="text-center">
-                  <a
+                  <Link
                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                    href="#"
-                  >
-                    Forgot Password?
-                  </a>
-                </div>
-                <div className="text-center">
-                  <a
-                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                    href="./index.html"
+                    to="/login"
                   >
                     Already have an account? Login!
-                  </a>
+                  </Link>
                 </div>
               </form>
             </div>

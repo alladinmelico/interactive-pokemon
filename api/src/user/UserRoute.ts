@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-router.get(
+router.post(
   '/login',
   userValidator.checkLogin(),
   middleware.handleValidation,

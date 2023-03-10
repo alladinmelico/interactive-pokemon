@@ -15,10 +15,15 @@ declare global {
 class PokemonController {
   async index(req: Request, res: Response) {
     try {
-      const data = await PokemonModel.findAll({
-        where: {},
+      const user = await UserModel.findOne({
+        where: { email: req.user?.email },
+        include: PokemonModel,
       })
-      return res.json({ data, message: 'Pokemons successfully retrieved.' })
+
+      return res.json({
+        data: user?.toJSON().Pokemons,
+        message: 'Pokemons successfully retrieved.',
+      })
     } catch (error) {
       return res.status(500).send('Failed to retrieve pokemons')
     }

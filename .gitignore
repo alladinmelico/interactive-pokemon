@@ -1,5 +1,6 @@
 /api/node_modules
 /api/dist
 /client/node_modules
+/client/coverage
 *.sqlite
 *.log

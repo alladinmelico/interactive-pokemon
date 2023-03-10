@@ -37,7 +37,9 @@ UserModel.init(
       type: DataTypes.STRING,
       get: function () {
         const itemsArr = this.getDataValue('items')?.split(',')
-        return itemsArr?.map((item) => Items.get(item))
+        return itemsArr
+          ?.filter((item) => !!item)
+          .map((item) => ({ ...Items.get(item), name: item }))
       },
     },
   },

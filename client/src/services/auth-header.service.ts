@@ -1,5 +1,5 @@
 interface Storage {
-  accessToken?: string
+  token?: string
 }
 
 export default function authHeader() {
@@ -7,9 +7,9 @@ export default function authHeader() {
   let user: Storage = {}
   if (userStr) user = JSON.parse(userStr)
 
-  if (user && user.accessToken) {
-    return { 'x-access-token': user.accessToken }
+  if (user && user.token) {
+    return { Authorization: 'Bearer ' + user.token }
   } else {
-    return { 'x-access-token': null }
+    return { Authorization: '' }
   }
 }

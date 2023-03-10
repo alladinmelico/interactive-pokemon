@@ -10,6 +10,21 @@ declare global {
 }
 
 class ItemController {
+  async index(req: Request, res: Response) {
+    try {
+      const user = await UserModel.findOne({
+        where: { email: req.user?.email },
+      })
+
+      return res.json({
+        data: user?.toJSON().items,
+        message: 'Items successfully retrieved.',
+      })
+    } catch (error) {
+      return res.status(500).send('Failed to create')
+    }
+  }
+
   async add(req: Request, res: Response) {
     try {
       const user = await UserModel.update(

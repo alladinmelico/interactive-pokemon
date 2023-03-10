@@ -1,7 +1,7 @@
 import express from 'express'
-import postValidator from '../validator'
-import middleware from '../../middleware'
-import postController from '../controller'
+import postValidator from './PostValidator'
+import middleware from '../middleware'
+import postController from './PostController'
 
 const router = express.Router()
 

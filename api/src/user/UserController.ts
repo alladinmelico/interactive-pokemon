@@ -7,20 +7,23 @@ import { omit } from 'lodash'
 
 class UserController {
   async login(req: Request, res: Response) {
-    const { email, password } = req.body
-
-    const data = await UserModel.scope('auth').findOne({
-      where: { email },
-    })
-    console.log('data', data)
     try {
+      const { email, password } = req.body
+      const data = await UserModel.scope('auth').findOne({
+        where: { email },
+      })
+
+      if (!data) {
+        return res.json({ error: 'Invalid email or password' })
+      }
+
       const hashedPassword = await bcrypt.compare(
         password,
         data?.dataValues.password as string
       )
 
       if (hashedPassword === false || !data) {
-        return res.json({ message: 'Invalid email or password' })
+        return res.json({ error: 'Invalid email or password' })
       }
 
       const token = generateAccessToken({ email })

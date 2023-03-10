@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize'
-import database from '../../config/database.config'
-import { UserModel } from '../../user/UserModel'
+import database from '../config/database.config'
+import { UserModel } from '../user/UserModel'
 
 interface IPost {
   id: string

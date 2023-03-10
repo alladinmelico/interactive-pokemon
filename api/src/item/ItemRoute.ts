@@ -13,12 +13,15 @@ declare global {
   }
 }
 
-router.put(
-  '/items',
-  itemValidator.checkAddOne(),
-  [middleware.authenticateToken, middleware.handleValidation],
-  itemController.add
-)
+router
+  .put(
+    '/items',
+    itemValidator.checkAddOne(),
+    [middleware.authenticateToken, middleware.handleValidation],
+    itemController.add
+  )
+  .get('/items', middleware.authenticateToken, itemController.index)
+
 router.delete(
   '/items/:id',
   itemValidator.checkAddOne(),
