@@ -22,11 +22,4 @@ router
   )
   .get('/items', middleware.authenticateToken, itemController.index)
 
-router.delete(
-  '/items/:id',
-  itemValidator.checkAddOne(),
-  [middleware.authenticateToken, middleware.handleValidation],
-  itemController.delete
-)
-
 export default router

@@ -20,7 +20,6 @@ export default function Login() {
   const navigate = useNavigate()
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     login(data.email, data.password).then((response) => {
-      console.log(response)
       if (response.error) {
         setError(response.error)
       } else {
