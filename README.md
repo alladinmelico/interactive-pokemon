@@ -1,3 +1,9 @@
+#Alladin Melico
+![Screenshot 2023-03-10 at 7 41 47 PM](https://user-images.githubusercontent.com/40887666/224307489-b5a3d6e4-61ac-4a42-8c09-b7e5baad7a9f.png)
+![Screenshot 2023-03-10 at 7 41 47 PM](https://user-images.githubusercontent.com/40887666/224307541-40ee637f-74d4-43f8-8fed-2b1162b79a89.png)
+![Screenshot 2023-03-10 at 7 41 47 PM](https://user-images.githubusercontent.com/40887666/224307571-4e6fbe78-c514-4bbb-940e-b17e3f92c5c9.png)
+
+
 ## ⚙️ Installation 
 ### Backend
 Open a new terminal and run the following: 
